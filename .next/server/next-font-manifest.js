@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/isaac/Desktop/Projects/ibidun.dev/src/app/layout\":[\"static/media/52ec7afa65258c8d.p.woff2\",\"static/media/748b40310fafb33f-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
