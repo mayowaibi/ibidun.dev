@@ -30,7 +30,7 @@ export default function RootLayout({
 				className={twMerge(
 					kanit.variable,
 					bona_nova.variable,
-					"bg-gray-950 text-white antialiased font-sans"
+					"bg-gray-950 text-white antialiased font-sans overscroll-none"
 				)}
 				style={{ overflow: "sm:hidden md:hidden lg:hidden" }}>
 				{children}

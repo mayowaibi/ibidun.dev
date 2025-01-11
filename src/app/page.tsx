@@ -82,14 +82,16 @@ export default function Home() {
 								<div className="bg-red-500 size-2.5 rounded-full relative">
 									<div className="bg-red-500 absolute inset-0 rounded-full animate-ping-large"></div>
 								</div>
-								<div className="text-md">Busy with my last semester</div>
+								<div className="sm:text-sm md:text-base">
+									Busy with my last semester
+								</div>
 							</div>
 						</div>
 
 						{/* NAME AND DESCRIPTION */}
 						<div className="max-w-lg mx-auto">
 							<div className="group animate-appear">
-								<h1 className="cursor-default font-serif text-5xl md:text-6xl text-center mt-8 tracking-tighter relative overflow-hidden">
+								<h1 className="cursor-default font-serif text-4xl md:text-6xl text-center mt-8 tracking-tighter relative overflow-hidden">
 									<span className="block transition-transform duration-200 transform group-hover:-translate-y-full">
 										ISAAC IBIDUN
 									</span>
