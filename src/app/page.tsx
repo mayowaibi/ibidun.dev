@@ -58,13 +58,13 @@ export default function Home() {
 				<div className="m-3 flex flex-row justify-between items-center">
 					<div className="border border-white/15 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
 						<audio ref={audioRef} src={elevatorMusic} loop />
-						<div className="text-md md:text-lg font-medium">
+						<div className="text-sm md:text-lg font-medium">
 							<button onClick={togglePlay}>
 								{isPlaying ? "⏸" : "▶"} elevator-music.mp3
 							</button>
 						</div>
 					</div>
-					<div className="md:text-lg border border-white/15 px-4 py-1.5 inline-flex items-center rounded-xl cursor-default">
+					<div className="text-sm md:text-lg border border-white/15 px-4 py-1.5 inline-flex items-center rounded-xl cursor-default">
 						📍 Toronto, Canada
 					</div>
 				</div>

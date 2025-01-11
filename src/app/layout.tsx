@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import favicon from "@/assets/images/man-behind-computer-emoji.png";
-import { Afacad, Bona_Nova } from "next/font/google";
+import { Kanit, Bona_Nova } from "next/font/google";
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
 
-const inter = Afacad({
+const kanit = Kanit({
 	subsets: ["latin"],
 	variable: "--font-sans",
-	weight: ["500"],
+	weight: ["400"],
 });
 const bona_nova = Bona_Nova({
 	subsets: ["latin"],
@@ -29,7 +28,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body
 				className={twMerge(
-					inter.variable,
+					kanit.variable,
 					bona_nova.variable,
 					"bg-gray-950 text-white antialiased font-sans"
 				)}
