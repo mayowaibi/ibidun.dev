@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import favicon from "@/assets/images/man-behind-computer-emoji.png";
 import { Afacad, Bona_Nova } from "next/font/google";
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
@@ -32,7 +33,7 @@ export default function RootLayout({
 					bona_nova.variable,
 					"bg-gray-950 text-white antialiased font-sans"
 				)}
-				style={{ overflow: "hidden" }}>
+				style={{ overflow: "sm:hidden md:hidden lg:hidden" }}>
 				{children}
 			</body>
 		</html>

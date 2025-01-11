@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import memojiImage from "@/assets/images/man-behind-computer-emoji.png";
-import grainImage from "@/assets/images/grain.jpg";
+import emojiImage from "@/assets/images/man-behind-computer-emoji.png";
 import GmailIcon from "@/assets/icons/gmail.svg";
 import LinkedinIcon from "@/assets/icons/linkedin.svg";
 import GitHubIcon from "@/assets/icons/github.svg";
@@ -19,7 +18,7 @@ export default function Home() {
 
 		documentTarget.setAttribute(
 			"style",
-			`--x: ${x}px; --y: ${y}px; --opacity: 1`
+			`--x: ${x}px; --y: ${y}px; --opacity: 0.1`
 		);
 	};
 
@@ -44,11 +43,11 @@ export default function Home() {
 	};
 	return (
 		<>
-			{/* GRAIN OVERLAY */}
+			{/* HOVER UNDERLAY */}
 			<div
-				className="absolute inset-0 -z-30 opacity-10 bg-cyan-300"
+				className="absolute inset-0 -z-30 opacity-10 bg-cyan-200"
 				style={{
-					// opacity: "var(--opacity, 0)",
+					opacity: "var(--opacity, 0)",
 					mask: `radial-gradient(25rem 25rem at var(--x) var(--y), #000 1%, transparent 50%)`,
 					WebkitMask: `radial-gradient(25rem 25rem at var(--x) var(--y), #000 1%, transparent 50%)`,
 				}}></div>
@@ -65,23 +64,21 @@ export default function Home() {
 							</button>
 						</div>
 					</div>
-					<div className="border border-white/15 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
-						<div className="text-md md:text-lg font-medium">
-							📍 Toronto, Canada
-						</div>
+					<div className="md:text-lg border border-white/15 px-4 py-1.5 inline-flex items-center rounded-xl cursor-default">
+						📍 Toronto, Canada
 					</div>
 				</div>
 
 				<div className="py-36 md:py-48 lg:py-48">
 					<div className="container">
 						{/* CHARACTER EMOJI AND STATUS */}
-						<div className="flex flex-col items-center">
+						<div className=" animate-appear flex flex-col items-center">
 							<Image
-								src={memojiImage}
+								src={emojiImage}
 								className="size-[100px] select-none pointer-events-none"
 								alt="Dark-skin man peeking from behind laptop"
 							/>
-							<div className="bg-black border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
+							<div className="cursor-default bg-black border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
 								<div className="bg-red-500 size-2.5 rounded-full relative">
 									<div className="bg-red-500 absolute inset-0 rounded-full animate-ping-large"></div>
 								</div>
@@ -91,8 +88,8 @@ export default function Home() {
 
 						{/* NAME AND DESCRIPTION */}
 						<div className="max-w-lg mx-auto">
-							<div className="group">
-								<h1 className="font-serif text-5xl md:text-6xl text-center mt-8 tracking-tighter relative overflow-hidden">
+							<div className="group animate-appear">
+								<h1 className="cursor-default font-serif text-5xl md:text-6xl text-center mt-8 tracking-tighter relative overflow-hidden">
 									<span className="block transition-transform duration-200 transform group-hover:-translate-y-full">
 										ISAAC IBIDUN
 									</span>
@@ -101,38 +98,58 @@ export default function Home() {
 									</span>
 								</h1>
 							</div>
-							<p className="mt-7 text-center text-white/85 md:text-xl">
-								Computer science undergraduate and tech enthusiast with a{" "}
-								<span className="text-yellow-200 hover:text-yellow-400 hover:cursor-pointer">
-									passion
+							<p className="cursor-default animate-appear mt-7 text-center text-white/85 md:text-xl">
+								Computer science undergraduate and{" "}
+								<span className="text-yellow-200 hover:text-yellow-400 hover:cursor-default">
+									software developer
 								</span>{" "}
-								for innovative development and creating meaningful solutions.
+								with a passion for solving real-world problems using technology.
 							</p>
 						</div>
 
 						{/* BUTTONS FOR SOCIALS */}
 						<div className="flex flex-row justify-center gap-8 mt-8">
-							<a href="mailto:ibidun.isaac@gmail.com">
-								<button className="border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
-									<GmailIcon className="w-10 h-10" />
-								</button>
-							</a>
-							<a
-								href="https://www.linkedin.com/in/isaac-ibidun/"
-								target="_blank"
-								rel="noopener noreferrer">
-								<button className="border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
-									<LinkedinIcon className="w-10 h-10" />
-								</button>
-							</a>
-							<a
-								href="https://github.com/mayowaibi"
-								target="_blank"
-								rel="noopener noreferrer">
-								<button className="border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
-									<GitHubIcon className="w-10 h-10" />
-								</button>
-							</a>
+							{/* Gmail */}
+							<div className="relative group">
+								<a href="mailto:ibidun.isaac@gmail.com">
+									<button className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
+										<GmailIcon className="w-10 h-10" />
+									</button>
+								</a>
+								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+									Gmail
+								</div>
+							</div>
+
+							{/* LinkedIn */}
+							<div className="relative group">
+								<a
+									href="https://www.linkedin.com/in/isaac-ibidun/"
+									target="_blank"
+									rel="noopener noreferrer">
+									<button className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
+										<LinkedinIcon className="w-10 h-10" />
+									</button>
+								</a>
+								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+									LinkedIn
+								</div>
+							</div>
+
+							{/* GitHub */}
+							<div className="relative group">
+								<a
+									href="https://github.com/mayowaibi"
+									target="_blank"
+									rel="noopener noreferrer">
+									<button className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
+										<GitHubIcon className="w-10 h-10" />
+									</button>
+								</a>
+								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+									GitHub
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

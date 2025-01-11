@@ -22,12 +22,23 @@ const config: Config = {
 			},
 			animation: {
 				"ping-large": "ping-large 1s ease-in-out infinite",
+				appear: "appear 1s ease-in-out",
 			},
 			keyframes: {
 				"ping-large": {
 					"75%, 100%": {
 						transform: "scale(3)",
 						opacity: "0",
+					},
+				},
+				appear: {
+					"0%": {
+						opacity: "0",
+						transform: "translateY(7rem)",
+					},
+					"100%": {
+						opacity: "1",
+						transform: "translateY(0)",
 					},
 				},
 			},
