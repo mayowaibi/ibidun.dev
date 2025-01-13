@@ -82,9 +82,7 @@ export default function Home() {
 								<div className="bg-red-500 size-2.5 rounded-full relative">
 									<div className="bg-red-500 absolute inset-0 rounded-full animate-ping-large"></div>
 								</div>
-								<div className="sm:text-sm md:text-base">
-									Busy with my last semester
-								</div>
+								<div className="sm:text-sm md:text-base">Busy with school</div>
 							</div>
 						</div>
 
