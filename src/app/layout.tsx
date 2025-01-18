@@ -37,6 +37,8 @@ export default function RootLayout({
 				style={{ overflow: "sm:hidden md:hidden lg:hidden" }}>
 				{children}
 			</body>
+			<Analytics />
+			<SpeedInsights />
 		</html>
 	);
 }
