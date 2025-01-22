@@ -6,6 +6,8 @@ import GmailIcon from "@/assets/icons/gmail.svg";
 import LinkedinIcon from "@/assets/icons/linkedin.svg";
 import GitHubIcon from "@/assets/icons/github.svg";
 import elevatorMusic from "@/assets/music/elevator-music.mp3";
+import WeatherTooltip from "@/components/WeatherTooltip";
+import TimeTooltip from "@/components/TimeTooltip";
 
 export default function Home() {
 	// Hover effect for hero section
@@ -48,8 +50,8 @@ export default function Home() {
 				className="absolute inset-0 -z-30 opacity-10 bg-cyan-200"
 				style={{
 					opacity: "var(--opacity, 0)",
-					mask: `radial-gradient(25rem 25rem at var(--x) var(--y), #000 1%, transparent 50%)`,
-					WebkitMask: `radial-gradient(25rem 25rem at var(--x) var(--y), #000 1%, transparent 50%)`,
+					mask: `radial-gradient(30rem 30rem at var(--x) var(--y), #000 1%, transparent 50%)`,
+					WebkitMask: `radial-gradient(30rem 30rem at var(--x) var(--y), #000 1%, transparent 50%)`,
 				}}></div>
 
 			{/* HERO SECTION */}
@@ -58,14 +60,18 @@ export default function Home() {
 				<div className="m-3 flex flex-row justify-between items-center">
 					<div className="border border-white/15 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
 						<audio ref={audioRef} src={elevatorMusic} loop />
-						<div className="text-sm md:text-lg font-medium">
-							<button onClick={togglePlay}>
-								{isPlaying ? "⏸" : "▶"} elevator-music.mp3
-							</button>
-						</div>
+						<button
+							onClick={togglePlay}
+							className="text-sm md:text-lg font-medium">
+							{isPlaying ? "⏸" : "▶"} elevator-music.mp3
+						</button>
 					</div>
-					<div className="text-sm md:text-lg border border-white/15 px-4 py-1.5 inline-flex items-center rounded-xl cursor-default">
-						📍 Toronto, Canada
+					<div className="relative group">
+						<div className="text-sm md:text-lg border border-white/15 px-4 py-1.5 inline-flex items-center rounded-xl cursor-default">
+							📍 Toronto, Canada
+						</div>
+						{/* <WeatherTooltip /> */}
+						<TimeTooltip />
 					</div>
 				</div>
 
