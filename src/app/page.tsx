@@ -117,9 +117,11 @@ export default function Home() {
 						<div className="flex flex-row justify-center gap-8 mt-8">
 							{/* Gmail */}
 							<div className="relative group">
-								<a href="mailto:ibidun.isaac@gmail.com">
-									<button className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
-										<GmailIcon className="w-10 h-10" />
+								<a href="mailto:ibidun.isaac@gmail.com" aria-label="Gmail">
+									<button
+										className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10"
+										name="Gmail Button">
+										<GmailIcon className="w-10 h-10" name="Gmail Icon" />
 									</button>
 								</a>
 								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
@@ -132,9 +134,12 @@ export default function Home() {
 								<a
 									href="https://www.linkedin.com/in/isaac-ibidun/"
 									target="_blank"
-									rel="noopener noreferrer">
-									<button className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
-										<LinkedinIcon className="w-10 h-10" />
+									rel="noopener noreferrer"
+									aria-label="LinkedIn">
+									<button
+										className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10"
+										name="LinkedIn Button">
+										<LinkedinIcon className="w-10 h-10" name="LinkedIn Icon" />
 									</button>
 								</a>
 								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
@@ -147,9 +152,12 @@ export default function Home() {
 								<a
 									href="https://github.com/mayowaibi"
 									target="_blank"
-									rel="noopener noreferrer">
-									<button className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10">
-										<GitHubIcon className="w-10 h-10" />
+									rel="noopener noreferrer"
+									aria-label="GitHub">
+									<button
+										className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10"
+										name="GitHub Button">
+										<GitHubIcon className="w-10 h-10" name="GitHub Icon" />
 									</button>
 								</a>
 								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
