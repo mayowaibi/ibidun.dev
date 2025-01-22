@@ -33,8 +33,7 @@ export default function RootLayout({
 					kanit.variable,
 					bona_nova.variable,
 					"bg-gray-950 text-white antialiased font-sans overscroll-none"
-				)}
-				style={{ overflow: "sm:hidden md:hidden lg:hidden" }}>
+				)}>
 				{children}
 			</body>
 			<Analytics />

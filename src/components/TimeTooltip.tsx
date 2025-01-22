@@ -10,9 +10,24 @@ const TimeTooltip = () => {
 	}, []);
 
 	return (
-		<div className="pointer-events-none flex flex-col items-center absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm md:text-base text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
-			<p>{time.toLocaleTimeString()}</p>
-			<p>{time.toLocaleDateString()}</p>
+		<div className="pointer-events-none w-64 flex flex-col items-center absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 py-1 text-sm md:text-base text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+			<p>
+				{new Intl.DateTimeFormat("en-US", {
+					hour: "2-digit",
+					minute: "2-digit",
+					second: "2-digit",
+					hour12: true,
+					timeZone: "America/Toronto",
+				}).format(time)}
+			</p>
+			<p>
+				{new Intl.DateTimeFormat("en-GB", {
+					year: "numeric",
+					month: "2-digit",
+					day: "2-digit",
+					timeZone: "America/Toronto",
+				}).format(time)}
+			</p>
 		</div>
 	);
 };
