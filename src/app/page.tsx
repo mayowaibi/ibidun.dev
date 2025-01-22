@@ -120,8 +120,8 @@ export default function Home() {
 								<a href="mailto:ibidun.isaac@gmail.com" aria-label="Gmail">
 									<button
 										className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10"
-										name="Gmail Button">
-										<GmailIcon className="w-10 h-10" name="Gmail Icon" />
+										aria-label="Gmail Button">
+										<GmailIcon className="w-10 h-10" />
 									</button>
 								</a>
 								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
@@ -138,8 +138,8 @@ export default function Home() {
 									aria-label="LinkedIn">
 									<button
 										className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10"
-										name="LinkedIn Button">
-										<LinkedinIcon className="w-10 h-10" name="LinkedIn Icon" />
+										aria-label="LinkedIn Button">
+										<LinkedinIcon className="w-10 h-10" />
 									</button>
 								</a>
 								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
@@ -156,8 +156,8 @@ export default function Home() {
 									aria-label="GitHub">
 									<button
 										className="animate-appear border border-white/15 px-4 h-16 rounded-xl hover:bg-white/10"
-										name="GitHub Button">
-										<GitHubIcon className="w-10 h-10" name="GitHub Icon" />
+										aria-label="GitHub Button">
+										<GitHubIcon className="w-10 h-10" />
 									</button>
 								</a>
 								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">

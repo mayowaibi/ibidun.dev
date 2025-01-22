@@ -11,7 +11,7 @@ const TimeTooltip = () => {
 
 	return (
 		<div className="pointer-events-none w-64 flex flex-col items-center absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 py-1 text-sm md:text-base text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
-			<p>
+			<p suppressHydrationWarning>
 				{new Intl.DateTimeFormat("en-US", {
 					hour: "2-digit",
 					minute: "2-digit",
@@ -20,7 +20,7 @@ const TimeTooltip = () => {
 					timeZone: "America/Toronto",
 				}).format(time)}
 			</p>
-			<p>
+			<p suppressHydrationWarning>
 				{new Intl.DateTimeFormat("en-GB", {
 					year: "numeric",
 					month: "2-digit",
