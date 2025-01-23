@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import emojiImage from "@/assets/images/man-behind-computer-emoji.png";
 import GmailIcon from "@/assets/icons/gmail.svg";
 import LinkedinIcon from "@/assets/icons/linkedin.svg";
 import GitHubIcon from "@/assets/icons/github.svg";
 import elevatorMusic from "@/assets/music/elevator-music.mp3";
 import WeatherTooltip from "@/components/WeatherTooltip";
 import TimeTooltip from "@/components/TimeTooltip";
+import ThreejsScene from "@/components/ThreejsScene";
 
 export default function Home() {
 	// Hover effect for hero section
@@ -75,15 +74,12 @@ export default function Home() {
 					</div>
 				</div>
 
-				<div className="py-36 md:py-48 lg:py-48">
+				{/* 3D Head */}
+				<ThreejsScene />
+				<div className="py-52 md:py-64 lg:py-72">
 					<div className="container">
-						{/* CHARACTER EMOJI AND STATUS */}
+						{/* STATUS */}
 						<div className=" animate-appear flex flex-col items-center">
-							<Image
-								src={emojiImage}
-								className="size-[100px] select-none pointer-events-none"
-								alt="Dark-skin man peeking from behind laptop"
-							/>
 							<div className="cursor-default bg-black border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
 								<div className="bg-red-500 size-2.5 rounded-full relative">
 									<div className="bg-red-500 absolute inset-0 rounded-full animate-ping-large"></div>
