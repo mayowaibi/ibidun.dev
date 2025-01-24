@@ -6,12 +6,15 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const ThreejsScene: React.FC = () => {
 	const mountRef = useRef<HTMLDivElement | null>(null);
-	const head = new URL("@/assets/models/head.glb", import.meta.url).href;
+	const modelSrc = new URL(
+		"@/assets/models/avatar-with-macbook.glb",
+		import.meta.url
+	).href;
 
 	useEffect(() => {
 		if (!mountRef.current) return;
 
-		// Set up the scene, camera, and renderer
+		// Scene, camera, and renderer setup
 		const scene = new THREE.Scene();
 		const camera = new THREE.PerspectiveCamera(
 			75,
@@ -20,31 +23,41 @@ const ThreejsScene: React.FC = () => {
 			1000
 		);
 		camera.position.z = 4;
+		camera.position.y = 1;
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		mountRef.current.appendChild(renderer.domElement);
 
-		// Add ambient light
-		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+		// Ambient light
+		const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
 		scene.add(ambientLight);
 
-		// Add a directional light to cast shadows
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-		directionalLight.position.set(5, 5, 5);
-		scene.add(directionalLight);
+		// Directional light for avatar
+		const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1);
+		directionalLight1.position.set(0, 3, 5);
+		scene.add(directionalLight1);
 
-		// Load the 3D model
+		// Directional light for macbook
+		const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+		directionalLight2.position.set(0, -2, 5);
+		scene.add(directionalLight2);
+
+		// Load 3D model
 		const loader = new GLTFLoader();
 		let model: THREE.Object3D | undefined;
+		let head: THREE.Object3D | undefined;
+		let macbook: THREE.Object3D | undefined;
 
 		loader.load(
-			head,
+			modelSrc,
 			(gltf) => {
 				model = gltf.scene;
 
-				model.scale.set(0.5, 0.5, 0.5);
+				model.scale.set(2, 2, 2);
 				scene.add(model);
+
+				head = model.getObjectByName("Head");
 			},
 			undefined,
 			(error) => {
@@ -52,27 +65,44 @@ const ThreejsScene: React.FC = () => {
 			}
 		);
 
-		// Handle mouse interaction
+		// Handle resizing
+		const handleResize = () => {
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+		};
+		window.addEventListener("resize", handleResize);
+
+		// Mouse interaction
 		const mouse = new THREE.Vector2();
 		let targetRotation = new THREE.Vector2(0, 0);
 
 		const handleMouseMove = (event: MouseEvent) => {
-			mouse.x = (event.clientX / window.innerWidth) * 2 - 1; // Horizontal
-			mouse.y = (event.clientY / window.innerHeight) * 2 - 1; // Vertical
+			mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+			mouse.y = (event.clientY / window.innerHeight) * 2 - 1;
 
 			targetRotation.set(mouse.y, mouse.x);
 		};
 
 		window.addEventListener("pointermove", handleMouseMove);
 
-		// Animation loop with damping
 		const animate = () => {
 			requestAnimationFrame(animate);
 
-			if (model) {
-				// Smoothly interpolate the model's rotation towards the target rotation
-				model.rotation.x += (targetRotation.x - model.rotation.x) * 0.1;
-				model.rotation.y += (targetRotation.y - model.rotation.y) * 0.1;
+			const maxTilt = Math.PI / 7;
+			const minTilt = -Math.PI / 5;
+
+			if (head) {
+				// Smooth interpolation
+				head.rotation.x += (targetRotation.x - head.rotation.x) * 0.06;
+				head.rotation.y += (targetRotation.y - head.rotation.y) * 0.06;
+
+				// Clamping X-axis rotation
+				head.rotation.x = THREE.MathUtils.clamp(
+					head.rotation.x,
+					minTilt,
+					maxTilt
+				);
 			}
 
 			renderer.render(scene, camera);
@@ -83,6 +113,7 @@ const ThreejsScene: React.FC = () => {
 		// Cleanup
 		return () => {
 			window.removeEventListener("pointermove", handleMouseMove);
+			window.removeEventListener("resize", handleResize);
 			if (mountRef.current) {
 				mountRef.current.removeChild(renderer.domElement);
 			}
@@ -94,7 +125,7 @@ const ThreejsScene: React.FC = () => {
 			ref={mountRef}
 			style={{
 				position: "absolute",
-				top: "-20%",
+				top: "-26%",
 				left: 0,
 				width: "100vw",
 				height: "100vh",
