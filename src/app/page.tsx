@@ -7,9 +7,7 @@ import elevatorMusic from "@/assets/music/elevator-music.mp3";
 import WeatherTooltip from "@/components/WeatherTooltip";
 import TimeTooltip from "@/components/TimeTooltip";
 import dynamic from "next/dynamic";
-const ThreejsScene = dynamic(() => import("../components/ThreejsScene"), {
-	ssr: false,
-});
+import ThreejsScene from "@/components/ThreejsScene";
 
 export default function Home() {
 	// Hover effect for hero section
