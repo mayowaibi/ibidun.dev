@@ -131,6 +131,7 @@ const ThreejsScene: React.FC = () => {
 				height: "100vh",
 				zIndex: -1,
 			}}
+			className="animate-appear"
 		/>
 	);
 };
