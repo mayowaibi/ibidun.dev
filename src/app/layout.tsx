@@ -19,6 +19,11 @@ const bona_nova = Bona_Nova({
 export const metadata: Metadata = {
 	title: "Isaac Ibidun | Software Developer",
 	description: "Personal Website for Oluwamayowa Isaac Ibidun",
+	icons: {
+		icon: "/favicon.ico", // Generic favicon
+		shortcut: "/favicon.ico", // Legacy support
+		apple: "/favicon.ico", // Apple devices
+	},
 };
 
 export default function RootLayout({
