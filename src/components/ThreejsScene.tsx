@@ -47,7 +47,6 @@ const ThreejsScene: React.FC = () => {
 		const loader = new GLTFLoader();
 		let model: THREE.Object3D | undefined;
 		let head: THREE.Object3D | undefined;
-		let macbook: THREE.Object3D | undefined;
 
 		loader.load(
 			modelSrc,
@@ -125,7 +124,7 @@ const ThreejsScene: React.FC = () => {
 			ref={mountRef}
 			style={{
 				position: "absolute",
-				top: "-26%",
+				top: "-27.5%",
 				left: 0,
 				width: "100vw",
 				height: "100vh",

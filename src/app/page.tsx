@@ -85,7 +85,9 @@ export default function Home() {
 								<div className="bg-red-500 size-2.5 rounded-full relative">
 									<div className="bg-red-500 absolute inset-0 rounded-full animate-ping-large"></div>
 								</div>
-								<div className="sm:text-sm md:text-base">Busy with school</div>
+								<div className="sm:text-sm md:text-base">
+									Working on projects
+								</div>
 							</div>
 						</div>
 
@@ -101,12 +103,12 @@ export default function Home() {
 									</span>
 								</h1>
 							</div>
-							<p className="cursor-default animate-appear mt-7 text-center text-white/85 md:text-xl">
+							<p className="cursor-default animate-appear mt-7 text-center text-white md:text-xl">
 								Computer science undergraduate and{" "}
-								<span className="text-yellow-200 hover:text-yellow-400 hover:cursor-default">
+								<span className="text-yellow-200 hover:cursor-default">
 									software developer
 								</span>{" "}
-								with a passion for solving real-world problems using technology.
+								with a passion for creating impact using technology.
 							</p>
 						</div>
 
