@@ -104,7 +104,7 @@ export default function Home() {
 								</h1>
 							</div>
 							<p className="cursor-default animate-appear mt-7 text-center text-white md:text-xl">
-								Computer science undergraduate and{" "}
+								Computer science graduate and{" "}
 								<span className="text-yellow-200 hover:cursor-default">
 									software developer
 								</span>{" "}
