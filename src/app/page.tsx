@@ -92,7 +92,7 @@ export default function Home() {
 						</div>
 
 						{/* NAME AND DESCRIPTION */}
-						<div className="max-w-lg mx-auto">
+						<div className="max-w-xl mx-auto">
 							<div className="group animate-appear">
 								<h1 className="cursor-default font-serif text-4xl md:text-6xl text-center mt-8 tracking-tighter relative overflow-hidden">
 									<span className="block transition-transform duration-200 transform group-hover:-translate-y-full">
@@ -103,12 +103,11 @@ export default function Home() {
 									</span>
 								</h1>
 							</div>
-							<p className="cursor-default animate-appear mt-7 text-center text-white md:text-xl">
-								Computer science graduate and{" "}
+							<p className="cursor-default animate-appear mt-7 text-center text-white md:text-2xl">
 								<span className="text-yellow-200 hover:cursor-default">
-									software developer
+									Software developer
 								</span>{" "}
-								with a passion for creating impact using technology.
+								driven by creativity and impact.
 							</p>
 						</div>
 
