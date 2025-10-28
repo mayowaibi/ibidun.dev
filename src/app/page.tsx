@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import GmailIcon from "@/assets/icons/gmail.svg";
 import LinkedinIcon from "@/assets/icons/linkedin.svg";
 import GitHubIcon from "@/assets/icons/github.svg";
-import elevatorMusic from "@/assets/music/elevator-music.mp3";
+import jazzMusic from "@/assets/music/jazz-music.mp3";
 import WeatherTooltip from "@/components/WeatherTooltip";
 import TimeTooltip from "@/components/TimeTooltip";
 import dynamic from "next/dynamic";
@@ -47,7 +47,7 @@ export default function Home() {
 		<>
 			{/* HOVER UNDERLAY */}
 			<div
-				className="absolute inset-0 -z-30 opacity-10 bg-cyan-200"
+				className="absolute inset-0 -z-30 bg-cyan-100"
 				style={{
 					opacity: "var(--opacity, 0)",
 					mask: `radial-gradient(30rem 30rem at var(--x) var(--y), #000 1%, transparent 50%)`,
@@ -59,11 +59,11 @@ export default function Home() {
 				{/* MUSIC AND LOCATION */}
 				<div className="m-3 flex flex-row justify-between items-center">
 					<div className="border border-white/15 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
-						<audio ref={audioRef} src={elevatorMusic} loop />
+						<audio ref={audioRef} src={jazzMusic} loop />
 						<button
 							onClick={togglePlay}
 							className="text-sm md:text-lg font-medium">
-							{isPlaying ? "⏸" : "▶"} elevator-music.mp3
+							{isPlaying ? "⏸" : "▶"} jazz-music.mp3
 						</button>
 					</div>
 					<div className="relative group">
@@ -95,12 +95,26 @@ export default function Home() {
 						<div className="max-w-xl mx-auto">
 							<div className="group animate-appear">
 								<h1 className="cursor-default font-serif text-4xl md:text-6xl text-center mt-8 tracking-tighter relative overflow-hidden">
-									<span className="block transition-transform duration-200 transform group-hover:-translate-y-full">
-										ISAAC IBIDUN
-									</span>
-									<span className="absolute inset-0 md:flex items-center justify-center transition-transform duration-200 transform translate-y-full group-hover:translate-y-0">
-										MAYOWA IBIDUN
-									</span>
+									<div className="block">
+										{"ISAAC IBIDUN".split("").map((char, i) => (
+											<span
+												key={i}
+												className="inline-block transition-transform duration-200 transform group-hover:-translate-y-full"
+												style={{ transitionDelay: `${i * 12}ms` }}>
+												{char === " " ? "\u00A0" : char}
+											</span>
+										))}
+									</div>
+									<div className="absolute inset-0 md:flex items-center justify-center">
+										{"MAYOWA IBIDUN".split("").map((char, i) => (
+											<span
+												key={i}
+												className="inline-block transition-transform duration-200 transform translate-y-full group-hover:translate-y-0"
+												style={{ transitionDelay: `${i * 12}ms` }}>
+												{char === " " ? "\u00A0" : char}
+											</span>
+										))}
+									</div>
 								</h1>
 							</div>
 							<p className="cursor-default animate-appear mt-7 text-center text-white md:text-2xl">
@@ -122,7 +136,7 @@ export default function Home() {
 										<GmailIcon className="w-9 h-9 md:w-10 md:h-10" />
 									</button>
 								</a>
-								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
 									Gmail
 								</div>
 							</div>
@@ -140,7 +154,7 @@ export default function Home() {
 										<LinkedinIcon className="w-9 h-9 md:w-10 md:h-10" />
 									</button>
 								</a>
-								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
 									LinkedIn
 								</div>
 							</div>
@@ -158,7 +172,7 @@ export default function Home() {
 										<GitHubIcon className="w-9 h-9 md:w-10 md:h-10" />
 									</button>
 								</a>
-								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-sm bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
 									GitHub
 								</div>
 							</div>
