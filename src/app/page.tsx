@@ -20,7 +20,7 @@ export default function Home() {
 
 		documentTarget.setAttribute(
 			"style",
-			`--x: ${x}px; --y: ${y}px; --opacity: 0.1`
+			`--x: ${x}px; --y: ${y}px; --opacity: 0.1`,
 		);
 	};
 
@@ -75,10 +75,13 @@ export default function Home() {
 					</div>
 				</div>
 
-				{/* 3D Head */}
-				<ThreejsScene />
 				<div className="py-52 md:py-64 lg:py-72">
 					<div className="container">
+						{/* 3D MODEL */}
+						<div className="absolute top-[-27.5%] left-0 width-[100vw] height-[100vh] -z-10">
+							<ThreejsScene />
+						</div>
+
 						{/* STATUS */}
 						<div className="animate-appear flex flex-col items-center">
 							<div className="cursor-default bg-black border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
@@ -142,7 +145,7 @@ export default function Home() {
 							</div>
 
 							{/* LinkedIn */}
-							<div className="relative group">
+							{/* <div className="relative group">
 								<a
 									href="https://www.linkedin.com/in/isaac-ibidun/"
 									target="_blank"
@@ -157,7 +160,7 @@ export default function Home() {
 								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
 									LinkedIn
 								</div>
-							</div>
+							</div> */}
 
 							{/* GitHub */}
 							<div className="relative group">
