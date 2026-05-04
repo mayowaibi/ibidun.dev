@@ -1,13 +1,33 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import GmailIcon from "@/assets/icons/gmail.svg";
-import LinkedinIcon from "@/assets/icons/linkedin.svg";
 import GitHubIcon from "@/assets/icons/github.svg";
 import jazzMusic from "@/assets/music/jazz-music.mp3";
-import WeatherTooltip from "@/components/WeatherTooltip";
+import classicalMusic from "@/assets/music/classical-music.mp3";
+import lofiMusic from "@/assets/music/lofi-music.mp3";
 import TimeTooltip from "@/components/TimeTooltip";
-import dynamic from "next/dynamic";
 import ThreejsScene from "@/components/ThreejsScene";
+
+const musicTracks = [
+	{
+		id: "jazz",
+		label: "Jazz",
+		fileName: "jazz-music.mp3",
+		src: jazzMusic,
+	},
+	{
+		id: "lofi",
+		label: "Lofi",
+		fileName: "lofi-music.mp3",
+		src: lofiMusic,
+	},
+	{
+		id: "classical",
+		label: "Classical",
+		fileName: "classical-music.mp3",
+		src: classicalMusic,
+	},
+];
 
 export default function Home() {
 	// Hover effect for hero section
@@ -32,17 +52,54 @@ export default function Home() {
 
 	// Audio controller
 	const [isPlaying, setIsPlaying] = useState(false);
+	const [selectedTrackId, setSelectedTrackId] = useState(musicTracks[0].id);
+	const [isMusicMenuOpen, setIsMusicMenuOpen] = useState(false);
 	const audioRef = useRef<HTMLAudioElement>(null);
+	const isPlayingRef = useRef(isPlaying);
+	const selectedTrack =
+		musicTracks.find((track) => track.id === selectedTrackId) ?? musicTracks[0];
+
+	useEffect(() => {
+		isPlayingRef.current = isPlaying;
+	}, [isPlaying]);
+
+	useEffect(() => {
+		const audio = audioRef.current;
+		if (!audio) return;
+
+		audio.load();
+
+		if (isPlayingRef.current) {
+			audio.play().catch(() => {
+				setIsPlaying(false);
+			});
+		}
+	}, [selectedTrackId]);
 
 	const togglePlay = () => {
-		if (!audioRef.current) return;
+		const audio = audioRef.current;
+		if (!audio) return;
+
 		if (isPlaying) {
-			audioRef.current.pause();
+			audio.pause();
+			setIsPlaying(false);
 		} else {
-			audioRef.current.play();
+			audio
+				.play()
+				.then(() => {
+					setIsPlaying(true);
+				})
+				.catch(() => {
+					setIsPlaying(false);
+				});
 		}
-		setIsPlaying(!isPlaying);
 	};
+
+	const selectTrack = (trackId: string) => {
+		setSelectedTrackId(trackId);
+		setIsMusicMenuOpen(false);
+	};
+
 	return (
 		<>
 			{/* HOVER UNDERLAY */}
@@ -57,14 +114,68 @@ export default function Home() {
 			{/* HERO SECTION */}
 			<div className="relative z-0" ref={heroContainer}>
 				{/* MUSIC AND LOCATION */}
-				<div className="m-3 flex flex-row justify-between items-center">
-					<div className="border border-white/15 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
-						<audio ref={audioRef} src={jazzMusic} loop />
-						<button
-							onClick={togglePlay}
-							className="text-sm md:text-lg font-medium">
-							{isPlaying ? "⏸" : "▶"} jazz-music.mp3
-						</button>
+				<div className="m-3 flex flex-row flex-wrap justify-between items-start gap-3">
+					<div
+						className="group relative max-w-[calc(100vw-1.5rem)] min-w-0"
+						onMouseEnter={() => setIsMusicMenuOpen(true)}
+						onMouseLeave={() => setIsMusicMenuOpen(false)}
+						onFocus={() => setIsMusicMenuOpen(true)}
+						onBlur={(event) => {
+							if (
+								!(
+									event.relatedTarget instanceof Node &&
+									event.currentTarget.contains(event.relatedTarget)
+								)
+							) {
+								setIsMusicMenuOpen(false);
+							}
+						}}>
+						<audio ref={audioRef} src={selectedTrack.src} loop />
+						<div className="border border-white/15 px-2.5 py-1.5 md:px-4 inline-flex items-center gap-2 rounded-xl bg-gray-950/70 backdrop-blur-sm">
+							<button
+								onClick={togglePlay}
+								className="flex size-8 shrink-0 items-center justify-center rounded-lg text-base font-medium hover:bg-white/10 md:size-9 md:text-lg"
+								aria-label={isPlaying ? "Pause music" : "Play music"}>
+								{isPlaying ? "⏸" : "▶"}
+							</button>
+							<button
+								type="button"
+								onClick={() => setIsMusicMenuOpen((isOpen) => !isOpen)}
+								className="flex min-w-0 max-w-[8.5rem] items-center gap-2 text-left text-sm font-medium md:max-w-none md:text-lg"
+								aria-haspopup="listbox"
+								aria-expanded={isMusicMenuOpen}>
+								<span className="truncate">{selectedTrack.fileName}</span>
+								<span className="text-xs text-white/70">▾</span>
+							</button>
+						</div>
+						<div
+							className={`absolute left-0 top-full z-20 mt-2 w-full min-w-48 overflow-hidden rounded-xl border border-white/15 bg-gray-950/95 p-1 shadow-xl backdrop-blur-sm transition-opacity ${
+								isMusicMenuOpen
+									? "pointer-events-auto opacity-100"
+									: "pointer-events-none opacity-0"
+							}`}
+							role="listbox"
+							aria-label="Music selection">
+							{musicTracks.map((track) => (
+								<button
+									key={track.id}
+									type="button"
+									onClick={() => selectTrack(track.id)}
+									className="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-sm text-white hover:bg-white/10 md:text-base"
+									role="option"
+									aria-selected={track.id === selectedTrack.id}>
+									<span className="min-w-0">
+										<span className="block font-medium">{track.label}</span>
+										<span className="block truncate text-xs text-white/60">
+											{track.fileName}
+										</span>
+									</span>
+									{track.id === selectedTrack.id && (
+										<span className="text-xs text-yellow-200">Selected</span>
+									)}
+								</button>
+							))}
+						</div>
 					</div>
 					<div className="relative group">
 						<div className="text-sm md:text-lg border border-white/15 px-4 py-1.5 inline-flex items-center rounded-xl cursor-default">
