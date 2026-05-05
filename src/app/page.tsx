@@ -2,9 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 import GmailIcon from "@/assets/icons/gmail.svg";
 import GitHubIcon from "@/assets/icons/github.svg";
-import jazzMusic from "@/assets/music/jazz-music.mp3";
-import classicalMusic from "@/assets/music/classical-music.mp3";
-import lofiMusic from "@/assets/music/lofi-music.mp3";
+import jazzMusic from "@/assets/music/jazz-lounge.mp3";
+import classicalMusic from "@/assets/music/nocturne-op-9.mp3";
+import lofiMusic from "@/assets/music/without-return.mp3";
 import TimeTooltip from "@/components/TimeTooltip";
 import ThreejsScene from "@/components/ThreejsScene";
 
@@ -12,19 +12,19 @@ const musicTracks = [
 	{
 		id: "jazz",
 		label: "Jazz",
-		fileName: "jazz-music.mp3",
+		fileName: "jazz-lounge.mp3",
 		src: jazzMusic,
 	},
 	{
 		id: "lofi",
 		label: "Lofi",
-		fileName: "lofi-music.mp3",
+		fileName: "without-return.mp3",
 		src: lofiMusic,
 	},
 	{
 		id: "classical",
 		label: "Classical",
-		fileName: "classical-music.mp3",
+		fileName: "nocturne-op-9.mp3",
 		src: classicalMusic,
 	},
 ];
@@ -149,7 +149,7 @@ export default function Home() {
 							</button>
 						</div>
 						<div
-							className={`absolute left-0 top-full z-20 mt-2 w-full min-w-48 overflow-hidden rounded-xl border border-white/15 bg-gray-950/95 p-1 shadow-xl backdrop-blur-sm transition-opacity ${
+							className={`absolute left-0 top-full z-20 w-full min-w-48 overflow-hidden rounded-xl border border-white/15 bg-gray-950/95 p-1 shadow-xl backdrop-blur-sm transition-opacity ${
 								isMusicMenuOpen
 									? "pointer-events-auto opacity-100"
 									: "pointer-events-none opacity-0"
@@ -178,7 +178,7 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="relative group">
-						<div className="text-sm md:text-lg border border-white/15 px-4 py-1.5 inline-flex items-center rounded-xl cursor-default">
+						<div className="text-sm md:text-lg border border-white/15 px-2.5 py-2.5 md:px-4 inline-flex items-center rounded-xl bg-gray-950/70 backdrop-blur-sm cursor-default">
 							📍 Toronto, Canada
 						</div>
 						{/* <WeatherTooltip /> */}
@@ -245,7 +245,7 @@ export default function Home() {
 							<div className="relative group">
 								<a href="mailto:ibidun.isaac@gmail.com" aria-label="Gmail">
 									<button
-										className="animate-appear border border-white/15 px-3 h-14 md:px-4 md:h-16 rounded-xl hover:bg-white/10"
+										className="animate-appear border border-white/15 bg-gray-950/70 backdrop-blur-sm px-2.5 h-14 md:px-4 md:h-16 inline-flex items-center rounded-xl hover:bg-white/10"
 										aria-label="Gmail Button">
 										<GmailIcon className="w-9 h-9 md:w-10 md:h-10" />
 									</button>
@@ -281,7 +281,7 @@ export default function Home() {
 									rel="noopener noreferrer"
 									aria-label="GitHub">
 									<button
-										className="animate-appear border border-white/15 px-3 h-14 md:px-4 md:h-16 rounded-xl hover:bg-white/10"
+										className="animate-appear border border-white/15 bg-gray-950/70 backdrop-blur-sm px-2.5 h-14 md:px-4 md:h-16 inline-flex items-center rounded-xl hover:bg-white/10"
 										aria-label="GitHub Button">
 										<GitHubIcon className="w-9 h-9 md:w-10 md:h-10" />
 									</button>
