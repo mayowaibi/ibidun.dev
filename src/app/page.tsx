@@ -112,9 +112,9 @@ export default function Home() {
 				}}></div>
 
 			{/* HERO SECTION */}
-			<div className="relative z-0" ref={heroContainer}>
+			<div className="relative z-0 h-screen flex flex-col justify-center items-center" ref={heroContainer}>
 				{/* MUSIC AND LOCATION */}
-				<div className="m-3 flex flex-row flex-wrap justify-between items-start gap-3">
+				<div className="absolute top-0 left-0 right-0 m-3 flex flex-row flex-wrap justify-between items-start gap-3 z-10">
 					<div
 						className="group relative max-w-[calc(100vw-1.5rem)] min-w-0"
 						onMouseEnter={() => setIsMusicMenuOpen(true)}
@@ -186,20 +186,17 @@ export default function Home() {
 					</div>
 				</div>
 
-				<div className="py-52 md:py-64 lg:py-72">
-					<div className="container">
-						{/* 3D MODEL */}
-						<div className="absolute top-[-27.5%] left-0 width-[100vw] height-[100vh] -z-10">
-							<ThreejsScene />
-						</div>
-
-						{/* STATUS */}
-						<div className="animate-appear flex flex-col items-center">
+				<div className="w-full max-w-4xl px-3">
+					<div className="animate-appear relative flex flex-col items-center">
+							{/* 3D MODEL */}
+							<div className="pointer-events-none absolute bottom-full left-1/2 -z-10 h-[48rem] w-[min(320vw,90rem)] -translate-x-1/2 sm:h-[54rem] md:h-[50rem] md:w-[92rem] lg:h-[64rem] lg:w-[108rem] mb-[-10px]">
+								<ThreejsScene />
+							</div>
 							<div className="cursor-default bg-black border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
 								<div className="bg-red-500 size-2.5 rounded-full relative">
 									<div className="bg-red-500 absolute inset-0 rounded-full animate-ping-large"></div>
 								</div>
-								<div className="sm:text-sm md:text-base">
+								<div className="sm:text-sm md:text-base lg:text-lg">
 									Working on projects
 								</div>
 							</div>
@@ -208,7 +205,7 @@ export default function Home() {
 						{/* NAME AND DESCRIPTION */}
 						<div className="max-w-xl mx-auto">
 							<div className="group animate-appear">
-								<h1 className="cursor-default font-serif text-4xl md:text-6xl text-center mt-8 tracking-tighter relative overflow-hidden">
+								<h1 className="cursor-default font-serif md:text-6xl sm:text-4xl text-center mt-8 tracking-tighter relative overflow-hidden">
 									<div className="block">
 										{"ISAAC IBIDUN".split("").map((char, i) => (
 											<span
@@ -231,7 +228,7 @@ export default function Home() {
 									</div>
 								</h1>
 							</div>
-							<p className="cursor-default animate-appear mt-7 text-center text-white md:text-2xl">
+							<p className="cursor-default animate-appear mt-7 text-center text-white sm:text-xl md:text-2xl">
 								<span className="text-yellow-200 hover:cursor-default">
 									Software developer
 								</span>{" "}
@@ -293,7 +290,6 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-			</div>
-		</>
-	);
-}
+			</>
+		);
+	}
