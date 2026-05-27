@@ -149,11 +149,11 @@ const ThreejsScene: React.FC = () => {
 		return () => {
 			window.removeEventListener("pointermove", handleMouseMove);
 			window.removeEventListener("resize", handleResize);
-			if (mountRef.current) {
-				mountRef.current.removeChild(renderer.domElement);
+			if (mount.contains(renderer.domElement)) {
+				mount.removeChild(renderer.domElement);
 			}
 		};
-	}, []);
+	}, [modelSrc]);
 
 	return (
 		<div

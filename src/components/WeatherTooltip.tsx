@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 
 interface Weather {
@@ -33,6 +35,7 @@ const WeatherTooltip = () => {
 		<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 text-base text-white opacity-0 group-hover:opacity-100 transition-opacity">
 			{weather ? (
 				<div className="flex flex-row items-center gap-2">
+					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img
 						src={"https:" + weather.current.condition.icon}
 						alt="Weather Icon"
