@@ -34,10 +34,11 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
+				suppressHydrationWarning
 				className={twMerge(
 					kanit.variable,
 					bona_nova.variable,
-					"bg-gray-950 text-white antialiased font-sans overscroll-none bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0px,_rgba(255,255,255,0.05)_10px,_transparent_10px,_transparent_30px)]"
+					"site-body text-white antialiased font-sans overscroll-none"
 				)}>
 				{children}
 			</body>

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import fallbackAvatar from "@/assets/images/man-behind-computer-emoji.png";
 
 const ThreejsScene: React.FC = () => {
 	const mountRef = useRef<HTMLDivElement | null>(null);
@@ -156,17 +157,26 @@ const ThreejsScene: React.FC = () => {
 	}, [modelSrc]);
 
 	return (
-		<div
-			ref={mountRef}
-			style={{
-				position: "absolute",
-				inset: 0,
-				left: 0,
-				width: "100%",
-				height: "100%",
-			}}
-			className="animate-appear"
-		/>
+		<>
+			{/* eslint-disable-next-line @next/next/no-img-element */}
+			<img
+				src={fallbackAvatar.src}
+				alt=""
+				aria-hidden="true"
+				className="absolute bottom-[-3rem] left-1/2 w-[clamp(18rem,30vw,28rem)] -translate-x-1/2 select-none"
+			/>
+			<div
+				ref={mountRef}
+				style={{
+					position: "absolute",
+					inset: 0,
+					left: 0,
+					width: "100%",
+					height: "100%",
+				}}
+				className="animate-appear"
+			/>
+		</>
 	);
 };
 

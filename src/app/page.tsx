@@ -115,7 +115,7 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <div
-        className="relative z-0 h-screen flex flex-col justify-center items-center"
+        className="relative z-0 flex min-h-svh flex-col items-center justify-center"
         ref={heroContainer}
       >
         {/* MUSIC AND LOCATION */}
@@ -208,29 +208,30 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-full max-w-4xl px-3">
+        <div className="flex w-full max-w-5xl translate-y-[clamp(1.5rem,5vh,4rem)] flex-col items-center px-4">
           <div className="animate-appear relative flex flex-col items-center">
             {/* 3D MODEL */}
-            <div className="pointer-events-none absolute bottom-full left-1/2 -z-10 h-[48rem] w-[min(320vw,90rem)] -translate-x-1/2 sm:h-[54rem] md:h-[50rem] md:w-[92rem] lg:h-[64rem] lg:w-[108rem] mb-[-10px]">
+            <div className="pointer-events-none absolute bottom-full left-1/2 z-0 mb-[-10px] h-[50rem] w-[min(320vw,92rem)] -translate-x-1/2 sm:h-[56rem] md:h-[52rem] md:w-[96rem] lg:h-[66rem] lg:w-[112rem]">
               <ThreejsScene />
             </div>
             <LiquidGlassFrame
-              padding="6px 16px"
+              className="relative z-10"
+              padding="8px 20px"
               contentClassName="cursor-default gap-4"
             >
-              <div className="relative size-2.5 rounded-full bg-red-500">
+              <div className="relative size-3 rounded-full bg-red-500">
                 <div className="absolute inset-0 animate-ping-large rounded-full bg-red-500"></div>
               </div>
-              <span className="sm:text-sm md:text-base lg:text-lg">
+              <span className="text-base md:text-lg lg:text-xl">
                 Working on projects
               </span>
             </LiquidGlassFrame>
           </div>
 
           {/* NAME AND DESCRIPTION */}
-          <div className="max-w-xl mx-auto">
+          <div className="mx-auto max-w-3xl">
             <div className="group animate-appear">
-              <h1 className="cursor-default font-serif md:text-6xl sm:text-4xl text-center mt-8 tracking-tighter relative overflow-hidden">
+              <h1 className="relative mt-9 cursor-default overflow-hidden text-center font-serif text-5xl tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl">
                 <div className="block">
                   {"ISAAC IBIDUN".split("").map((char, i) => (
                     <span
@@ -255,7 +256,7 @@ export default function Home() {
                 </div>
               </h1>
             </div>
-            <p className="cursor-default animate-appear mt-7 text-center text-white sm:text-xl md:text-2xl">
+            <p className="mt-8 cursor-default animate-appear text-center text-xl text-white sm:text-2xl md:text-3xl">
               <span className="text-yellow-200 hover:cursor-default">
                 Software developer
               </span>{" "}
@@ -264,7 +265,7 @@ export default function Home() {
           </div>
 
           {/* BUTTONS FOR SOCIALS */}
-          <div className="flex flex-row justify-center gap-8 mt-8">
+          <div className="mt-10 flex flex-row justify-center gap-10">
             {/* Gmail */}
             <div className="relative group">
               <a href="mailto:contact@ibidun.dev" aria-label="Gmail">
@@ -273,10 +274,10 @@ export default function Home() {
                   contentClassName="animate-appear"
                 >
                   <button
-                    className="inline-flex h-14 items-center rounded-[40px] px-2.5 hover:bg-white/10 md:h-16 md:px-4"
+                    className="inline-flex h-16 items-center rounded-[40px] px-3 hover:bg-white/10 md:h-20 md:px-5"
                     aria-label="Gmail Button"
                   >
-                    <GmailIcon className="h-9 w-9 md:h-10 md:w-10" />
+                    <GmailIcon className="h-10 w-10 md:h-12 md:w-12" />
                   </button>
                 </LiquidGlassFrame>
               </a>
@@ -321,10 +322,10 @@ export default function Home() {
                   contentClassName="animate-appear"
                 >
                   <button
-                    className="inline-flex h-14 items-center rounded-[40px] px-2.5 hover:bg-white/10 md:h-16 md:px-4"
+                    className="inline-flex h-16 items-center rounded-[40px] px-3 hover:bg-white/10 md:h-20 md:px-5"
                     aria-label="GitHub Button"
                   >
-                    <GitHubIcon className="h-9 w-9 md:h-10 md:w-10" />
+                    <GitHubIcon className="h-10 w-10 md:h-12 md:w-12" />
                   </button>
                 </LiquidGlassFrame>
               </a>
