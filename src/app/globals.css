@@ -6,3 +6,19 @@ html,
 body {
 	overflow: hidden;
 }
+
+.liquid-glass-shell > * {
+	grid-area: 1 / 1;
+	left: 0 !important;
+	top: 0 !important;
+	transform: none !important;
+}
+
+.liquid-glass-shell > svg {
+	pointer-events: none;
+}
+
+.liquid-glass-shell > .bg-black,
+.liquid-glass-shell > span {
+	display: none !important;
+}

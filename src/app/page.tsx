@@ -5,6 +5,7 @@ import GitHubIcon from "@/assets/icons/github.svg";
 import jazzMusic from "@/assets/music/jazz-lounge.mp3";
 import classicalMusic from "@/assets/music/nocturne-op-9.mp3";
 import lofiMusic from "@/assets/music/without-return.mp3";
+import LiquidGlassFrame from "@/components/LiquidGlassFrame";
 import TimeTooltip from "@/components/TimeTooltip";
 import ThreejsScene from "@/components/ThreejsScene";
 
@@ -136,16 +137,20 @@ export default function Home() {
             }}
           >
             <audio ref={audioRef} src={selectedTrack.src} loop />
-            <div className="border border-white/15 px-2.5 py-1.5 md:px-4 inline-flex items-center gap-2 rounded-xl bg-gray-950/70 backdrop-blur-sm">
+            <LiquidGlassFrame
+              padding="6px 10px"
+              contentClassName="gap-2 md:px-1"
+            >
               <button
                 onClick={togglePlay}
-                className="flex size-8 shrink-0 items-center justify-center rounded-lg text-base font-medium hover:bg-white/10 md:size-9 md:text-lg"
+                className="flex size-8 shrink-0 items-center justify-center rounded-[40px] text-base font-medium hover:bg-white/10 md:size-9 md:text-lg"
                 aria-label={isPlaying ? "Pause music" : "Play music"}
               >
                 {isPlaying ? "⏸" : "▶"}
               </button>
               <button
                 type="button"
+                onMouseDown={(event) => event.preventDefault()}
                 onClick={() => setIsMusicMenuOpen((isOpen) => !isOpen)}
                 className="flex min-w-0 max-w-[8.5rem] items-center gap-2 text-left text-sm font-medium md:max-w-none md:text-lg"
                 aria-haspopup="listbox"
@@ -154,9 +159,9 @@ export default function Home() {
                 <span className="truncate">{selectedTrack.fileName}</span>
                 <span className="text-xs text-white/70">▾</span>
               </button>
-            </div>
+            </LiquidGlassFrame>
             <div
-              className={`absolute left-0 top-full z-20 w-full min-w-48 overflow-hidden rounded-xl border border-white/15 bg-gray-950/95 p-1 shadow-xl backdrop-blur-sm transition-opacity ${
+              className={`absolute left-0 top-full z-20 min-w-48 transition-opacity ${
                 isMusicMenuOpen
                   ? "pointer-events-auto opacity-100"
                   : "pointer-events-none opacity-0"
@@ -164,32 +169,40 @@ export default function Home() {
               role="listbox"
               aria-label="Music selection"
             >
-              {musicTracks.map((track) => (
-                <button
-                  key={track.id}
-                  type="button"
-                  onClick={() => selectTrack(track.id)}
-                  className="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-sm text-white hover:bg-white/10 md:text-base"
-                  role="option"
-                  aria-selected={track.id === selectedTrack.id}
-                >
-                  <span className="min-w-0">
-                    <span className="block font-medium">{track.label}</span>
-                    <span className="block truncate text-xs text-white/60">
-                      {track.fileName}
+              <LiquidGlassFrame
+                padding="4px"
+                contentClassName="w-48 flex-col items-stretch"
+              >
+                {musicTracks.map((track) => (
+                  <button
+                    key={track.id}
+                    type="button"
+                    onClick={() => selectTrack(track.id)}
+                    className="flex w-full items-center justify-between gap-3 rounded-[40px] px-3 py-2 text-left text-sm text-white hover:bg-white/10 md:text-base"
+                    role="option"
+                    aria-selected={track.id === selectedTrack.id}
+                  >
+                    <span className="min-w-0">
+                      <span className="block font-medium">{track.label}</span>
+                      <span className="block truncate text-xs text-white/60">
+                        {track.fileName}
+                      </span>
                     </span>
-                  </span>
-                  {track.id === selectedTrack.id && (
-                    <span className="text-xs text-yellow-200">Selected</span>
-                  )}
-                </button>
-              ))}
+                    {track.id === selectedTrack.id && (
+                      <span className="text-xs text-yellow-200">Selected</span>
+                    )}
+                  </button>
+                ))}
+              </LiquidGlassFrame>
             </div>
           </div>
           <div className="relative group">
-            <div className="text-sm md:text-lg border border-white/15 px-2.5 py-2.5 md:px-4 inline-flex items-center rounded-xl bg-gray-950/70 backdrop-blur-sm cursor-default">
-              📍 Toronto, Canada
-            </div>
+            <LiquidGlassFrame
+              padding="10px 14px"
+              contentClassName="cursor-default text-sm md:text-lg"
+            >
+              <span>📍 Toronto, Canada</span>
+            </LiquidGlassFrame>
             {/* <WeatherTooltip /> */}
             <TimeTooltip />
           </div>
@@ -201,14 +214,17 @@ export default function Home() {
             <div className="pointer-events-none absolute bottom-full left-1/2 -z-10 h-[48rem] w-[min(320vw,90rem)] -translate-x-1/2 sm:h-[54rem] md:h-[50rem] md:w-[92rem] lg:h-[64rem] lg:w-[108rem] mb-[-10px]">
               <ThreejsScene />
             </div>
-            <div className="cursor-default bg-black border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
-              <div className="bg-red-500 size-2.5 rounded-full relative">
-                <div className="bg-red-500 absolute inset-0 rounded-full animate-ping-large"></div>
+            <LiquidGlassFrame
+              padding="6px 16px"
+              contentClassName="cursor-default gap-4"
+            >
+              <div className="relative size-2.5 rounded-full bg-red-500">
+                <div className="absolute inset-0 animate-ping-large rounded-full bg-red-500"></div>
               </div>
-              <div className="sm:text-sm md:text-base lg:text-lg">
+              <span className="sm:text-sm md:text-base lg:text-lg">
                 Working on projects
-              </div>
-            </div>
+              </span>
+            </LiquidGlassFrame>
           </div>
 
           {/* NAME AND DESCRIPTION */}
@@ -252,15 +268,25 @@ export default function Home() {
             {/* Gmail */}
             <div className="relative group">
               <a href="mailto:contact@ibidun.dev" aria-label="Gmail">
-                <button
-                  className="animate-appear border border-white/15 bg-gray-950/70 backdrop-blur-sm px-2.5 h-14 md:px-4 md:h-16 inline-flex items-center rounded-xl hover:bg-white/10"
-                  aria-label="Gmail Button"
+                <LiquidGlassFrame
+                  padding="0"
+                  contentClassName="animate-appear"
                 >
-                  <GmailIcon className="w-9 h-9 md:w-10 md:h-10" />
-                </button>
+                  <button
+                    className="inline-flex h-14 items-center rounded-[40px] px-2.5 hover:bg-white/10 md:h-16 md:px-4"
+                    aria-label="Gmail Button"
+                  >
+                    <GmailIcon className="h-9 w-9 md:h-10 md:w-10" />
+                  </button>
+                </LiquidGlassFrame>
               </a>
-              <div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                Email
+              <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full opacity-0 transition-opacity group-hover:opacity-100">
+                <LiquidGlassFrame
+                  padding="4px 12px"
+                  contentClassName="justify-center text-base"
+                >
+                  Email
+                </LiquidGlassFrame>
               </div>
             </div>
 
@@ -290,15 +316,25 @@ export default function Home() {
                 rel="noopener noreferrer"
                 aria-label="GitHub"
               >
-                <button
-                  className="animate-appear border border-white/15 bg-gray-950/70 backdrop-blur-sm px-2.5 h-14 md:px-4 md:h-16 inline-flex items-center rounded-xl hover:bg-white/10"
-                  aria-label="GitHub Button"
+                <LiquidGlassFrame
+                  padding="0"
+                  contentClassName="animate-appear"
                 >
-                  <GitHubIcon className="w-9 h-9 md:w-10 md:h-10" />
-                </button>
+                  <button
+                    className="inline-flex h-14 items-center rounded-[40px] px-2.5 hover:bg-white/10 md:h-16 md:px-4"
+                    aria-label="GitHub Button"
+                  >
+                    <GitHubIcon className="h-9 w-9 md:h-10 md:w-10" />
+                  </button>
+                </LiquidGlassFrame>
               </a>
-              <div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                GitHub
+              <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full opacity-0 transition-opacity group-hover:opacity-100">
+                <LiquidGlassFrame
+                  padding="4px 12px"
+                  contentClassName="justify-center text-base"
+                >
+                  GitHub
+                </LiquidGlassFrame>
               </div>
             </div>
           </div>
