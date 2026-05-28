@@ -67,6 +67,63 @@ const pageSections = [
   },
 ];
 
+const projectGroups = [
+  {
+    label: "Web",
+    icon: "◎",
+    projects: [
+      {
+        name: "Nocturne",
+        description:
+          "A music-led portfolio concept with ambient playback and soft interaction states.",
+        visual: "audio",
+      },
+      {
+        name: "Driftboard",
+        description:
+          "A collaborative whiteboard prototype with persistent spatial notes and rooms.",
+        visual: "board",
+      },
+    ],
+  },
+  {
+    label: "Extensions",
+    icon: "⌘",
+    projects: [
+      {
+        name: "TabTide",
+        description:
+          "A calm browser extension for grouping tabs and quieting daily workspace clutter.",
+        visual: "tabs",
+      },
+      {
+        name: "Snippetly",
+        description:
+          "A compact snippet library for saving, searching, and sharing small code blocks.",
+        visual: "code",
+      },
+    ],
+  },
+  {
+    label: "School",
+    icon: "⌂",
+    projects: [
+      {
+        name: "Schedulr",
+        description:
+          "A course-planning tool that turns constraints into clear semester options.",
+        visual: "grid",
+      },
+      {
+        name: "RaytraceJS",
+        description:
+          "A browser renderer experiment with simple materials, lighting, and camera controls.",
+        visual: "sphere",
+      },
+    ],
+  },
+];
+
 export default function Home() {
   const pageContainer = useRef<HTMLDivElement>(null);
 
@@ -80,33 +137,10 @@ export default function Home() {
       page.style.setProperty("--opacity", "0.1");
     };
 
-    const handleWheelScroll = (event: WheelEvent) => {
-      if (event.defaultPrevented || event.deltaY === 0) return;
-
-      const startScrollY = window.scrollY;
-      const deltaY =
-        event.deltaMode === WheelEvent.DOM_DELTA_LINE
-          ? event.deltaY * 16
-          : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
-            ? event.deltaY * window.innerHeight
-            : event.deltaY;
-
-      requestAnimationFrame(() => {
-        if (window.scrollY !== startScrollY) return;
-
-        window.scrollBy({
-          top: deltaY,
-          behavior: "auto",
-        });
-      });
-    };
-
     window.addEventListener("pointermove", updateFlashlight, { passive: true });
-    window.addEventListener("wheel", handleWheelScroll, { passive: true });
 
     return () => {
       window.removeEventListener("pointermove", updateFlashlight);
-      window.removeEventListener("wheel", handleWheelScroll);
     };
   }, []);
 
@@ -173,9 +207,9 @@ export default function Home() {
       ></div>
 
       {/* HERO SECTION */}
-      <div className="relative z-0 min-h-screen flex flex-col justify-center items-center">
+      <div className="relative min-h-screen flex flex-col justify-center items-center">
         {/* HEADER */}
-        <header className="fixed top-0 left-0 right-0 z-30 m-3 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3">
+        <header className="fixed top-0 left-0 right-0 z-[100] m-3 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3">
           <div
             className="group relative min-w-0 justify-self-start pt-0.5"
             onMouseEnter={() => setIsMusicMenuOpen(true)}
@@ -402,24 +436,172 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-20 px-4 pb-24 pt-10 md:px-6 md:pb-32">
+      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 pb-24 pt-8 md:px-6 md:pb-32">
         {pageSections.map((section) => (
           <section
             key={section.id}
             id={section.id}
             className="scroll-mt-28 border-t border-white/10 pt-10"
           >
-            <div className="grid gap-5 md:grid-cols-[0.8fr_1.2fr] md:items-start">
-              <h2 className="font-serif text-3xl tracking-normal text-white md:text-5xl">
-                {section.title}
-              </h2>
-              <p className="max-w-2xl text-lg leading-8 text-white/70 md:text-xl">
-                {section.description}
-              </p>
-            </div>
+            {section.id === "projects" ? (
+              <div>
+                <div className="grid items-end gap-5 md:grid-cols-[auto_1fr]">
+                  <h2 className="font-serif text-5xl tracking-normal text-white md:text-7xl">
+                    {section.title}
+                  </h2>
+                  <div className="mb-3 hidden h-px bg-white/10 md:block" />
+                </div>
+
+                <div className="mt-10 grid gap-6 lg:grid-cols-3">
+                  {projectGroups.map((group) => (
+                    <div key={group.label} className="min-w-0">
+                      <div className="mb-4 flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.28em] text-white/55 md:text-sm">
+                        <span className="text-lg tracking-normal text-blue-400">
+                          {group.icon}
+                        </span>
+                        {group.label}
+                      </div>
+
+                      <div className="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-1">
+                        {group.projects.map((project) => (
+                          <article
+                            key={project.name}
+                            className="grid h-[23rem] grid-rows-[auto_1fr] overflow-hidden rounded-xl border border-white/10 bg-gray-950/45 transition hover:border-blue-300/35 hover:bg-gray-950/65"
+                          >
+                            <ProjectShowcase visual={project.visual} />
+                            <div className="border-t border-white/10 p-5">
+                              <div className="flex items-start justify-between gap-4">
+                                <h3 className="text-xl font-semibold text-white">
+                                  {project.name}
+                                </h3>
+                                <span
+                                  className="text-xl leading-none text-white/45"
+                                  aria-hidden="true"
+                                >
+                                  ↗
+                                </span>
+                              </div>
+                              <p className="mt-3 max-w-sm text-base leading-7 text-white/60">
+                                {project.description}
+                              </p>
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="grid gap-5 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+                <h2 className="font-serif text-3xl tracking-normal text-white md:text-5xl">
+                  {section.title}
+                </h2>
+                <p className="max-w-2xl text-lg leading-8 text-white/70 md:text-xl">
+                  {section.description}
+                </p>
+              </div>
+            )}
           </section>
         ))}
       </main>
+    </div>
+  );
+}
+
+function ProjectShowcase({ visual }: { visual: string }) {
+  if (visual === "audio") {
+    return (
+      <div className="flex h-48 items-end bg-gradient-to-br from-blue-900 via-blue-800 to-slate-950 p-5">
+        <div className="flex w-full items-center gap-3 rounded-xl bg-gray-950/70 p-3">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-400 text-base text-gray-950">
+            ▶
+          </div>
+          <div className="min-w-0 flex-1 space-y-1.5">
+            <div className="h-2 rounded-full bg-white/35" />
+            <div className="h-2 w-2/3 rounded-full bg-white/20" />
+          </div>
+          <span className="text-sm font-medium text-white/70">3:42</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (visual === "tabs") {
+    return (
+      <div className="h-48 bg-slate-900 p-5">
+        <div className="flex gap-2 border-b border-blue-300/25">
+          {[0, 1, 2, 3].map((item) => (
+            <div
+              key={item}
+              className={`h-8 flex-1 rounded-t-lg ${
+                item < 2 ? "bg-blue-400/85" : "bg-white/20"
+              }`}
+            />
+          ))}
+        </div>
+        <div className="mt-5 space-y-2.5">
+          <div className="h-2.5 w-4/5 rounded-full bg-white/25" />
+          <div className="h-2.5 w-1/2 rounded-full bg-white/20" />
+          <div className="h-2.5 w-2/3 rounded-full bg-white/25" />
+        </div>
+      </div>
+    );
+  }
+
+  if (visual === "grid") {
+    return (
+      <div className="grid h-48 grid-cols-5 gap-2 bg-slate-900 p-5">
+        {Array.from({ length: 20 }).map((_, index) => (
+          <div
+            key={index}
+            className={`rounded-md ${
+              [1, 2, 4, 6, 8, 9, 11, 14, 17].includes(index)
+                ? "bg-blue-400/80"
+                : "bg-white/7"
+            }`}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  if (visual === "board") {
+    return (
+      <div className="relative h-48 overflow-hidden bg-slate-900 p-5">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(125,211,252,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(125,211,252,0.08)_1px,transparent_1px)] bg-[size:28px_28px]" />
+        <div className="relative h-16 w-28 rounded-xl border-2 border-blue-400/70 bg-blue-400/10" />
+        <div className="relative ml-auto mt-1 size-12 rounded-full border-2 border-cyan-300/60 bg-cyan-300/10" />
+        <div className="relative mx-auto mt-10 h-10 w-40 rounded-xl border-2 border-white/35 bg-white/5" />
+      </div>
+    );
+  }
+
+  if (visual === "code") {
+    return (
+      <div className="h-48 bg-gray-950 p-5 font-mono text-sm leading-6 text-white/70">
+        <p>
+          <span className="text-blue-400">const</span>{" "}
+          <span className="text-cyan-300">save</span> = () =&gt; {"{"}
+        </p>
+        <p className="pl-6">
+          return <span className="text-sky-300">"hello"</span>;
+        </p>
+        <p>{"}"}</p>
+        <div className="mt-4 inline-flex rounded-md bg-blue-500/25 px-2.5 py-1 text-xs text-blue-200">
+          ⌘ + S saved
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative flex h-48 items-center justify-center overflow-hidden bg-gray-950">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.24),transparent_44%)]" />
+      <div className="relative size-24 rounded-full bg-gradient-to-br from-sky-300 via-blue-500 to-blue-900 shadow-[0_0_4rem_rgba(59,130,246,0.35)]" />
+      <span className="absolute bottom-4 right-5 font-mono text-xs text-blue-300">
+        1024 spp · 4.2s
+      </span>
     </div>
   );
 }
