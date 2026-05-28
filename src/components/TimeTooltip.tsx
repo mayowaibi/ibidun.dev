@@ -11,7 +11,7 @@ const TimeTooltip = () => {
 	}, []);
 
 	return (
-		<div className="pointer-events-none w-64 flex flex-col items-center absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 py-1 text-sm md:text-base text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+		<div className="pointer-events-none absolute bottom-0 left-1/2 flex w-64 -translate-x-1/2 translate-y-full transform flex-col items-center rounded-xl border border-white/15 bg-gray-950/70 py-1 text-sm text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 md:text-base">
 			<p suppressHydrationWarning>
 				{new Intl.DateTimeFormat("en-US", {
 					hour: "2-digit",

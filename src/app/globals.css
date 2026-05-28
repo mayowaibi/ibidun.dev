@@ -4,5 +4,22 @@
 
 html,
 body {
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scroll-behavior: smooth;
+}
+
+.site-grid-bg {
+	background-color: #020812;
+	background-image:
+		linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(125, 211, 252, 0.03) 1px, transparent 1px),
+		radial-gradient(circle at 18% 12%, rgba(34, 211, 238, 0.06), transparent 30rem),
+		linear-gradient(180deg, rgba(4, 17, 31, 0.55), rgba(2, 8, 18, 0));
+	background-size:
+		44px 44px,
+		44px 44px,
+		100% 100%,
+		100% 100%;
+	background-attachment: fixed;
 }

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import GmailIcon from "@/assets/icons/gmail.svg";
 import GitHubIcon from "@/assets/icons/github.svg";
 import jazzMusic from "@/assets/music/jazz-lounge.mp3";
@@ -29,25 +29,85 @@ const musicTracks = [
   },
 ];
 
-export default function Home() {
-  // Hover effect for hero section
-  const heroContainer = useRef<HTMLDivElement>(null);
-  const applyOverlayMask = (e: PointerEvent) => {
-    const documentTarget = e.currentTarget as Element;
-    if (!heroContainer.current) return;
-    const x = e.pageX - heroContainer.current.offsetLeft;
-    const y = e.pageY - heroContainer.current.offsetTop;
+const navGroups = [
+  [
+    { label: "projects", href: "#projects" },
+    { label: "tools", href: "#tools" },
+  ],
+  [
+    { label: "interests", href: "#interests" },
+    { label: "contact", href: "#contact" },
+  ],
+];
 
-    documentTarget.setAttribute(
-      "style",
-      `--x: ${x}px; --y: ${y}px; --opacity: 0.1`,
-    );
-  };
+const pageSections = [
+  {
+    id: "projects",
+    title: "Projects",
+    description:
+      "Selected builds where thoughtful software, polished interfaces, and practical problem solving meet.",
+  },
+  {
+    id: "tools",
+    title: "Tools",
+    description:
+      "A working bench of frameworks, systems, and experiments I reach for when turning ideas into reliable products.",
+  },
+  {
+    id: "interests",
+    title: "Interests",
+    description:
+      "The creative edges that keep the work alive: music, design, interaction, research, and small details with outsized impact.",
+  },
+  {
+    id: "contact",
+    title: "Contact",
+    description:
+      "For collaborations, questions, or a good idea that needs a builder, email is the cleanest place to start.",
+  },
+];
+
+export default function Home() {
+  const pageContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.body.addEventListener("pointermove", (e) => {
-      applyOverlayMask(e);
-    });
+    const updateFlashlight = (event: PointerEvent) => {
+      const page = pageContainer.current;
+      if (!page) return;
+
+      page.style.setProperty("--x", `${event.clientX}px`);
+      page.style.setProperty("--y", `${event.clientY}px`);
+      page.style.setProperty("--opacity", "0.1");
+    };
+
+    const handleWheelScroll = (event: WheelEvent) => {
+      if (event.defaultPrevented || event.deltaY === 0) return;
+
+      const startScrollY = window.scrollY;
+      const deltaY =
+        event.deltaMode === WheelEvent.DOM_DELTA_LINE
+          ? event.deltaY * 16
+          : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+            ? event.deltaY * window.innerHeight
+            : event.deltaY;
+
+      requestAnimationFrame(() => {
+        if (window.scrollY !== startScrollY) return;
+
+        window.scrollBy({
+          top: deltaY,
+          behavior: "auto",
+        });
+      });
+    };
+
+    window.addEventListener("pointermove", updateFlashlight, { passive: true });
+    window.addEventListener("wheel", handleWheelScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("pointermove", updateFlashlight);
+      window.removeEventListener("wheel", handleWheelScroll);
+    };
   }, []);
 
   // Audio controller
@@ -101,10 +161,10 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div ref={pageContainer} className="relative min-h-screen">
       {/* HOVER UNDERLAY */}
       <div
-        className="absolute inset-0 -z-30 bg-cyan-100"
+        className="pointer-events-none fixed inset-0 z-0 bg-cyan-100"
         style={{
           opacity: "var(--opacity, 0)",
           mask: `radial-gradient(30rem 30rem at var(--x) var(--y), #000 1%, transparent 50%)`,
@@ -113,14 +173,11 @@ export default function Home() {
       ></div>
 
       {/* HERO SECTION */}
-      <div
-        className="relative z-0 h-screen flex flex-col justify-center items-center"
-        ref={heroContainer}
-      >
-        {/* MUSIC AND LOCATION */}
-        <div className="absolute top-0 left-0 right-0 m-3 flex flex-row flex-wrap justify-between items-start gap-3 z-10">
+      <div className="relative z-0 min-h-screen flex flex-col justify-center items-center">
+        {/* HEADER */}
+        <header className="fixed top-0 left-0 right-0 z-30 m-3 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3">
           <div
-            className="group relative max-w-[calc(100vw-1.5rem)] min-w-0"
+            className="group relative min-w-0 justify-self-start pt-0.5"
             onMouseEnter={() => setIsMusicMenuOpen(true)}
             onMouseLeave={() => setIsMusicMenuOpen(false)}
             onFocus={() => setIsMusicMenuOpen(true)}
@@ -136,10 +193,10 @@ export default function Home() {
             }}
           >
             <audio ref={audioRef} src={selectedTrack.src} loop />
-            <div className="border border-white/15 px-2.5 py-1.5 md:px-4 inline-flex items-center gap-2 rounded-xl bg-gray-950/70 backdrop-blur-sm">
+            <div className="inline-flex items-center rounded-xl border border-white/15 bg-gray-950/70 px-0 py-1.5 text-sm font-medium text-white backdrop-blur-sm md:px-1 md:text-lg">
               <button
                 onClick={togglePlay}
-                className="flex size-8 shrink-0 items-center justify-center rounded-lg text-base font-medium hover:bg-white/10 md:size-9 md:text-lg"
+                className="flex shrink-0 items-center justify-center rounded-lg px-2.5 py-1.5 text-sm hover:bg-white/10 md:px-3 md:text-lg"
                 aria-label={isPlaying ? "Pause music" : "Play music"}
               >
                 {isPlaying ? "⏸" : "▶"}
@@ -147,7 +204,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setIsMusicMenuOpen((isOpen) => !isOpen)}
-                className="flex min-w-0 max-w-[8.5rem] items-center gap-2 text-left text-sm font-medium md:max-w-none md:text-lg"
+                className="flex min-w-0 max-w-[8.5rem] items-center gap-2 rounded-lg py-1.5 text-left text-sm text-white/80 transition hover:bg-white/10 hover:text-white md:max-w-none md:px-1 md:text-lg"
                 aria-haspopup="listbox"
                 aria-expanded={isMusicMenuOpen}
               >
@@ -186,35 +243,75 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="relative group">
-            <div className="text-sm md:text-lg border border-white/15 px-2.5 py-2.5 md:px-4 inline-flex items-center rounded-xl bg-gray-950/70 backdrop-blur-sm cursor-default">
-              📍 Toronto, Canada
+
+          <nav
+            className="order-3 col-span-3 flex w-full justify-center pt-0.5 md:order-none md:col-span-1 md:w-auto"
+            aria-label="Page sections"
+          >
+            <div className="flex items-center gap-3 rounded-xl border border-white/15 bg-gray-950/70 px-2.5 py-1.5 text-sm font-medium text-white backdrop-blur-sm md:gap-5 md:px-4 md:text-lg">
+              {navGroups.map((group, groupIndex) => (
+                <Fragment key={groupIndex}>
+                  <div className="flex items-center gap-1.5 md:gap-2">
+                    {group.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="rounded-lg px-2.5 py-1.5 text-white/80 transition hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 md:px-3"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                  {groupIndex === 0 && (
+                    <a
+                      href="#"
+                      aria-label="Back to top"
+                      className="flex h-[2.125rem] items-center justify-center rounded-lg px-2.5 text-white/80 transition hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 md:h-9 md:px-3"
+                    >
+                      <span
+                        className="text-2xl leading-none md:text-3xl"
+                        aria-hidden="true"
+                      >
+                        👨🏾‍💻
+                      </span>
+                    </a>
+                  )}
+                </Fragment>
+              ))}
+            </div>
+          </nav>
+
+          <div className="relative group justify-self-end pt-0.5">
+            <div className="inline-flex cursor-default items-center rounded-xl border border-white/15 bg-gray-950/70 px-0 py-1.5 text-sm font-medium text-white backdrop-blur-sm md:px-1 md:text-lg">
+              <span className="rounded-lg px-2.5 py-1.5 md:px-3">
+                📍 Toronto, Canada
+              </span>
             </div>
             {/* <WeatherTooltip /> */}
             <TimeTooltip />
           </div>
-        </div>
+        </header>
 
-        <div className="w-full max-w-4xl px-3">
+        <div className="w-full max-w-5xl px-3 translate-y-8 sm:translate-y-10 md:translate-y-12">
           <div className="animate-appear relative flex flex-col items-center">
             {/* 3D MODEL */}
-            <div className="pointer-events-none absolute bottom-full left-1/2 -z-10 h-[48rem] w-[min(320vw,90rem)] -translate-x-1/2 sm:h-[54rem] md:h-[50rem] md:w-[92rem] lg:h-[64rem] lg:w-[108rem] mb-[-10px]">
+            <div className="pointer-events-none absolute bottom-full left-1/2 -z-10 h-[52rem] w-[min(340vw,96rem)] -translate-x-1/2 sm:h-[58rem] md:h-[55rem] md:w-[100rem] lg:h-[70rem] lg:w-[118rem] mb-[-10px]">
               <ThreejsScene />
             </div>
-            <div className="cursor-default bg-black border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-xl">
-              <div className="bg-red-500 size-2.5 rounded-full relative">
+            <div className="cursor-default rounded-xl border border-white/15 bg-gray-950/70 px-5 py-2 inline-flex items-center gap-4 backdrop-blur-sm md:px-6 md:py-2.5">
+              <div className="bg-red-500 size-3 rounded-full relative">
                 <div className="bg-red-500 absolute inset-0 rounded-full animate-ping-large"></div>
               </div>
-              <div className="sm:text-sm md:text-base lg:text-lg">
+              <div className="text-base sm:text-lg md:text-xl lg:text-2xl">
                 Working on projects
               </div>
             </div>
           </div>
 
           {/* NAME AND DESCRIPTION */}
-          <div className="max-w-xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             <div className="group animate-appear">
-              <h1 className="cursor-default font-serif md:text-6xl sm:text-4xl text-center mt-8 tracking-tighter relative overflow-hidden">
+              <h1 className="cursor-default font-serif text-5xl text-center mt-9 tracking-normal relative overflow-hidden sm:text-6xl md:text-7xl">
                 <div className="block">
                   {"ISAAC IBIDUN".split("").map((char, i) => (
                     <span
@@ -239,7 +336,7 @@ export default function Home() {
                 </div>
               </h1>
             </div>
-            <p className="cursor-default animate-appear mt-7 text-center text-white sm:text-xl md:text-2xl">
+            <p className="cursor-default animate-appear mt-8 text-center text-xl text-white sm:text-2xl md:text-3xl">
               <span className="text-yellow-200 hover:cursor-default">
                 Software developer
               </span>{" "}
@@ -248,18 +345,18 @@ export default function Home() {
           </div>
 
           {/* BUTTONS FOR SOCIALS */}
-          <div className="flex flex-row justify-center gap-8 mt-8">
+          <div className="flex flex-row justify-center gap-9 mt-9">
             {/* Gmail */}
             <div className="relative group">
               <a href="mailto:contact@ibidun.dev" aria-label="Gmail">
                 <button
-                  className="animate-appear border border-white/15 bg-gray-950/70 backdrop-blur-sm px-2.5 h-14 md:px-4 md:h-16 inline-flex items-center rounded-xl hover:bg-white/10"
+                  className="animate-appear border border-white/15 bg-gray-950/70 backdrop-blur-sm px-3 h-16 md:px-5 md:h-20 inline-flex items-center rounded-xl hover:bg-white/10"
                   aria-label="Gmail Button"
                 >
-                  <GmailIcon className="w-9 h-9 md:w-10 md:h-10" />
+                  <GmailIcon className="w-10 h-10 md:w-12 md:h-12" />
                 </button>
               </a>
-              <div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 rounded-xl border border-white/15 bg-gray-950/70 px-3 py-1.5 text-lg text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
                 Email
               </div>
             </div>
@@ -277,7 +374,7 @@ export default function Home() {
 										<LinkedinIcon className="w-9 h-9 md:w-10 md:h-10" />
 									</button>
 								</a>
-								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+								<div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 rounded-xl border border-white/15 bg-gray-950/70 px-2.5 py-1 text-base text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
 									LinkedIn
 								</div>
 							</div> */}
@@ -291,19 +388,38 @@ export default function Home() {
                 aria-label="GitHub"
               >
                 <button
-                  className="animate-appear border border-white/15 bg-gray-950/70 backdrop-blur-sm px-2.5 h-14 md:px-4 md:h-16 inline-flex items-center rounded-xl hover:bg-white/10"
+                  className="animate-appear border border-white/15 bg-gray-950/70 backdrop-blur-sm px-3 h-16 md:px-5 md:h-20 inline-flex items-center rounded-xl hover:bg-white/10"
                   aria-label="GitHub Button"
                 >
-                  <GitHubIcon className="w-9 h-9 md:w-10 md:h-10" />
+                  <GitHubIcon className="w-10 h-10 md:w-12 md:h-12" />
                 </button>
               </a>
-              <div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 px-2 py-1 text-base bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="pointer-events-none absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 rounded-xl border border-white/15 bg-gray-950/70 px-3 py-1.5 text-lg text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
                 GitHub
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+
+      <main className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-20 px-4 pb-24 pt-10 md:px-6 md:pb-32">
+        {pageSections.map((section) => (
+          <section
+            key={section.id}
+            id={section.id}
+            className="scroll-mt-28 border-t border-white/10 pt-10"
+          >
+            <div className="grid gap-5 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+              <h2 className="font-serif text-3xl tracking-normal text-white md:text-5xl">
+                {section.title}
+              </h2>
+              <p className="max-w-2xl text-lg leading-8 text-white/70 md:text-xl">
+                {section.description}
+              </p>
+            </div>
+          </section>
+        ))}
+      </main>
+    </div>
   );
 }

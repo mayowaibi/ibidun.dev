@@ -17,7 +17,7 @@ const ThreejsScene: React.FC = () => {
 		const mount = mountRef.current;
 
 		const getFrustumHeight = () => (window.innerWidth < 768 ? 4.2 : 3.8);
-		const getScale = () => (window.innerWidth < 768 ? 1.35 : 1.55);
+		const getScale = () => (window.innerWidth < 768 ? 1.48 : 1.72);
 		const updateCamera = () => {
 			const frustumHeight = getFrustumHeight();
 			const aspect = mount.clientWidth / mount.clientHeight;
@@ -113,8 +113,11 @@ const ThreejsScene: React.FC = () => {
 		let targetRotation = new THREE.Vector2(0, 0);
 
 		const handleMouseMove = (event: MouseEvent) => {
+			const verticalTrackingOffset = window.innerWidth < 768 ? 0.16 : 0.2;
+
 			mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-			mouse.y = (event.clientY / window.innerHeight) * 2 - 1;
+			mouse.y =
+				(event.clientY / window.innerHeight) * 2 - 1 + verticalTrackingOffset;
 
 			targetRotation.set(mouse.y, mouse.x);
 		};
